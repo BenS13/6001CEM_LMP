@@ -11,8 +11,8 @@ UPLOAD_FOLDER = 'uploads'
 app = flask.Flask(__name__)
 
 app.config.update(
-    SECRET_KEY="secr3!t"
-    SESSION_COOKIE_SAMESITE='Strict'
+    SECRET_KEY="secr3!t",
+    SESSION_COOKIE_SAMESITE='Strict',
     UPLOAD_FOLDER=UPLOAD_FOLDER
 )
 
