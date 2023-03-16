@@ -2,7 +2,7 @@
 
 import flask
 from flask import g
-from flask_mysqldb import MySQL
+import sqlite3
 
 DATABASE = 'database.db'
 UPLOAD_FOLDER = 'uploads'
@@ -16,22 +16,15 @@ app.config.update(
     UPLOAD_FOLDER=UPLOAD_FOLDER
 )
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USR'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'seed'
-app.config['MYSQL_DB'] = 'database'
-
-mysql = MySQL(app)
-
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = mysql.connect(DATABASE)
+        db = g._database = sqlite3.connect(DATABASE)
     return db
 
 
 
-
+#Initialise the DB and apply the schema "https://flask.palletsprojects.com/en/2.2.x/patterns/sqlite3/"
 def init_db():
     with app.app_context():
         db = get_db()
@@ -39,6 +32,7 @@ def init_db():
             db.cursor().executescript(file.read())
         db.commit()
 
+#Close the connection to the database
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
