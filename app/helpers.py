@@ -1,9 +1,13 @@
 #Helper functions for app such as connection to database ect.
+#Import all required modules
+#Set databse
+#Set secrect key
 
 import flask
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 from flask import g
 import sqlite3
+
 
 DATABASE = 'database.db'
 UPLOAD_FOLDER = 'uploads'
