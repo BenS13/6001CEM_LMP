@@ -27,7 +27,18 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
-
+'''
+Function to query db
+params:- query eg."SELECT * FROM users WHERE email=%s"
+       - values eg. email of user
+output:- returns
+'''
+def query_db(query, values, one=False):
+    app.logger.info("QUERY:%s, Value:%s", query, values)
+    cur = get_db().execute(query, values)#Open connection to DB and execute query
+    result = cur.fetchall()#Collect the response from DB
+    cur.close()#Close DB connection
+    return (result[0] if result else None) if one else result#If one is true - return result[0] if result exists else return result
 
 #Initialise the DB and apply the schema "https://flask.palletsprojects.com/en/2.2.x/patterns/sqlite3/"
 def init_db():
