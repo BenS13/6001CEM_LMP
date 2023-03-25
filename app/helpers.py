@@ -1,6 +1,7 @@
 #Helper functions for app such as connection to database ect.
 
 import flask
+from flask import render_template, request, redirect
 from flask import g
 import sqlite3
 

@@ -1,9 +1,11 @@
-from .helpers import *
+from .helpers import * #Import functions from helper file(eg. init_db)
+from flask import render_template
 
 
+#Route for root page
 @app.route("/")
 def index():
-    return "Test Page"
+    return render_template("index.html")
 
 
 
@@ -11,7 +13,7 @@ def index():
 
 
 
-
+#Route to initialise the database
 @app.route("/initdb")
 def database_init():
     init_db()
