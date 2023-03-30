@@ -16,6 +16,8 @@ CREATE TABLE modules(
 
 CREATE TABLE enrolment(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId INT NOT NULL,
+    moduleCode VARCHAR NOT NULL,
     FOREIGN KEY (userId)
         REFERENCES users (id),
     FOREIGN KEY (moduleCode)
@@ -26,6 +28,7 @@ CREATE TABLE posts(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR,
     allText VARCHAR,
+    authorId INT NOT NULL,
     FOREIGN KEY (authorId)
         REFERENCES users (id)
 );

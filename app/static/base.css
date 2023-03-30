@@ -1,8 +1,31 @@
+* {
+    box-sizing: border-box;
+    
+    
+  }
+
+
+.row{
+    padding: 10px
+
+}
+.column {
+    float: left;
+    padding-left: 10%;
+    
+}
+
+
+/*LEFT COLUM SIDE BAR*/
+.column left{
+    width:10%
+}
+
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 90px; /* Set the width of the sidebar */
+    width:10%;/* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
+     /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
     background-color: #A020F0; /* Black */
@@ -10,10 +33,20 @@
     padding-top: 10px;
   }
 
-  .sidenav a {
+  .sidenav a {  
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 14px;
     color: #000000;
     display: block;
   }
+
+
+
+/*Right Column Spaces Selector, Jouney/Community Selector, Main Content*/
+.column right{
+    width:90%
+}
+
+
+

@@ -10,15 +10,39 @@
     
 
     
-
-      <div class="sidenav">
-        <a href="#">MyProfile</a>
-        <a href="#">Search</a>
-        <a href="#">Notifications</a>
-        <a href="#">Help</a>
+    <!--Left Column-->
+      <div class="column left">
+        <!--SideBar-->
+        <div class="sidenav">
+            <a href="#">My Profile</a>
+            <a href="#">Search</a>
+            <a href="#">Notifications</a>
+            <a href="#">Help</a>
+          </div>
       </div>
-      
-    {%block main%}
-    {%endblock %}
+    
+    
+    <!--Column Right-->
+    <div class="column right">
+    <!--Spaces Selector-->
+    <div class="row">
+        <p>Spaces Selector</p>
+    </div>
+    <!--Community/Journey Selector-->
+    <div class="row">
+        <a href="#">Community</a>
+        <a href="#">Journey</a>
+    </div>
+    
+    <div class="row">
+    <div class="maincontent">
+    <!--Main Content eg.posts or files when on Journey-->
+    <p>Main Content eg.Posts</p>
+    {% block main %}
+    {% endblock %}
+    </div>
+    </div>
+
+    </div>
 </body>
 </html>
