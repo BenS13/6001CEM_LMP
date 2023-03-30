@@ -14,7 +14,7 @@
       <div class="column left">
         <!--SideBar-->
         <div class="sidenav">
-            <a href="#">My Profile</a>
+            <a href="{{url_for('main.account')}}">My Profile</a>
             <a href="#">Search</a>
             <a href="#">Notifications</a>
             <a href="#">Help</a>
@@ -30,8 +30,9 @@
     </div>
     <!--Community/Journey Selector-->
     <div class="row">
-        <a href="#">Community</a>
-        <a href="#">Journey</a>
+        <a href="module?module={{code}}&type=community">Community</a>
+        <a href="module?module={{code}}&type=materials">Materials</a>
+        <a href="module?module={{code}}&type=assignments">Assignments</a>
     </div>
     
     <div class="row">
