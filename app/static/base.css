@@ -1,8 +1,6 @@
 * {
     box-sizing: border-box;
-    
-    
-  }
+}
 
 
 .row{
@@ -16,7 +14,7 @@
 }
 
 
-/*LEFT COLUM SIDE BAR*/
+/*-----------LEFT COLUM SIDE BAR-----------------*/
 .column left{
     width:10%
 }
@@ -43,7 +41,7 @@
 
 
 
-/*Right Column Spaces Selector, Jouney/Community Selector, Main Content*/
+/*-------------Right Column Spaces Selector, Jouney/Community Selector, Main Content--------------*/
 .column right{
     width:90%
 }

@@ -26,8 +26,15 @@
     <div class="column right">
     <!--Spaces Selector-->
     <div class="row">
-        <p>Spaces Selector</p>
+        <div class="module-selector">
+            <button class="module-selector-content">
+                {%for module in enrolled_modules%}
+                    <a href="module?module={{module}}">{{module}}</a>
+                {%endfor%}
+            </button>
+        </div>
     </div>
+
     <!--Community/Journey Selector-->
     <div class="row">
         <a href="module?module={{code}}&type=community">Community</a>
@@ -38,7 +45,7 @@
     <div class="row">
     <div class="maincontent">
     <!--Main Content eg.posts or files when on Journey-->
-    <p>Main Content eg.Posts</p>
+    <h1>Main Content</h1>
     {% block main %}
     {% endblock %}
     </div>

@@ -19,21 +19,32 @@ def module():
     module_code = request.args.get('module')#Get module code from URL
     type = request.args.get('type')#Get type eg. Community, Journey(materials), Journey(assignments)
 
-    #Check if user is enrolled in the module
-    #IF yes load the community page
-    #ELSE dont load the page
-
+    #Query the enrollement table
+    #Find out what modules this user is enrolled in
+    #save to a list such as the one below
+    enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
+    #pass this list into all the module pages
     
-    if type == 'materials':#?module=X&type=materials
-        materials = "INSERT MATERIALS HERE"
-        return render_template('index.html',name=current_user.name, code=module_code, content=materials)
-    #Get the posts for that module ?module=X
-    elif type == 'assignments':#?module=X&type=assignments
-        assignments = "INSERT ASSIGNMENTS HERE"
-        return render_template('index.html', name=current_user.name, code=module_code, content=assignments)
-    else:#?module=X&type=community or none
-        posts = "INSERT POSTS HERE"
-        return render_template('index.html', name=current_user.name, code=module_code, content=posts)
+
+    #Check if user is enrolled in the module
+    #IF NO do something
+    #ELSE load requested page.
+    if module_code not in enrolled_modules:
+        print("Error user not enrolled in this course")
+        return "Error you are not enrolled in this module"
+
+    else:
+
+        if type == 'materials':#?module=X&type=materials
+            materials = "MATERIALS"
+            return render_template('index.html',name=current_user.name, code=module_code, content=materials, enrolled_modules= enrolled_modules)
+        #Get the posts for that module ?module=X
+        elif type == 'assignments':#?module=X&type=assignments
+            assignments = "ASSIGNMENTS"
+            return render_template('index.html', name=current_user.name, code=module_code, content=assignments, enrolled_modules= enrolled_modules)
+        else:#?module=X&type=community or none
+            posts = "POSTS"
+            return render_template('index.html', name=current_user.name, code=module_code, content=posts, enrolled_modules= enrolled_modules)
 
 
 
