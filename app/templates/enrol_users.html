@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{%block main%}
+<h1>Enrol User onto Modules</h1>
+
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+    <form class="login-form" method="POST" action="/admin/modulemanagement/enrol">
+       
+        <div class="select-field">
+            <select id="email" name="email" type="email">
+                {% for user in users %}
+                <option value="{{user.userEmail}}">{{user.userEmail}}</option>
+                {%endfor%}
+            </select>
+            <label for="email">Users Email<label>
+        </div>
+
+        <div class="select-field">
+            <select id="code" name="code" type="text">
+                {% for module in modules %}
+                <option value="{{module.moduleCode}}">{{module.moduleCode}}</option>
+                {%endfor%}
+            </select>
+            <label for="code">Module Code<label>
+        </div>
+
+        <div class="submit-button">
+            <button type="submit">Enrol</button>
+        </div>
+        </form>
+</div>
+
+<div>
+    <br>
+    {% for enrol in enrolment%}
+    <p>Module ID:{{enrol.moduleId}}</p>
+    <p>User ID:{{enrol.userId}}</p>
+    <br>
+    {%endfor%}
+</div>
+
+
+
+{%endblock%}

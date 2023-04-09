@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, url_for, redirect, request, flash
+from flask import Blueprint, render_template, url_for, redirect, request, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from .models import *
 from . import db
 
@@ -38,21 +38,21 @@ def signup():
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    email = request.form.get('email')#Get email from signup form
-    name = request.form.get('name')#Get name from signup form
-    password = request.form.get('password')
-    level = request.form.get('level')
+    #email = request.form.get('email')#Get email from signup form
+    #name = request.form.get('name')#Get name from signup form
+    #password = request.form.get('password')
+    #level = request.form.get('level')
     #print(email,name,password,level)
 
-    user = User.query.filter_by(email=email).first()
+    #user = User.query.filter_by(email=email).first()
 
-    if user:
-        flash("User already exists:{}".format(email))
+    #if user:
+        #flash("User already exists:{}".format(email))
         #print("USer exists already")
-        return redirect(url_for('auth.signup'))
+        #return redirect(url_for('auth.signup'))
         
     
-    new_user = User(email=email,  password=generate_password_hash(password, method='sha256'), name=name, level=level)#Create new user based on User class
+    new_user = User(userRole="admin", userEmail="admin@test.com",  userPassword=generate_password_hash("password1", method='sha256'), userName="John", userLevel="10")#Create new user based on User class
 
     db.session.add(new_user)#Add new user to users table
     db.session.commit()#Commit changes to DB
@@ -66,5 +66,6 @@ def signup_post():
 @auth.route('/logout')
 @login_required
 def logout():
+    session.pop('_flashes', None)
     logout_user()
     return redirect(url_for('auth.login'))

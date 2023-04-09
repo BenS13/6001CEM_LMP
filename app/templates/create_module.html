@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{%block main%}
+<h1>Create A Module</h1>
+
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+    <form class="login-form" method="POST" action="/admin/modulemanagement/create">
+        <div class="input-field">
+            <input id="module_code" name="module_code" type="text">
+            <label for="module_code">Module Code</label>
+        </div>
+        
+        <div class="input-field">
+            <input id="module_name" name="module_name" type="text">
+            <label for="module_name">Module Name<label>
+        </div>
+
+        <div class="select-field">
+            <select id="module_level" name="module_level" type="text">
+                
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            <label for="level">Module Level<label>
+        </div>
+
+        <div class="submit-button">
+            <button type="submit">Register</button>
+        </div>
+        </form>
+</div>
+
+
+
+{%endblock%}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{%block main%}
+<h1>Register a User</h1>
+
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+    <form class="login-form" method="POST" action="/admin/usermanagement/register">
+        <div class="input-field">
+            <select id="role" name="role" type="text">
+                
+                <option value="student">Student</option>
+                <option value="educator">Educator</option>
+            </select>
+            <label for="role">Users Role</label>
+        </div>
+        
+        <div class="input-field">
+            <input id="email" name="email" type="email">
+            <label for="email">Users Email<label>
+        </div>
+
+        <div class="input-field">
+            <input id="password" name="password", placeholder="password1" type="password" disabled>
+            <label for="password">Users Password<label>
+        </div>
+        
+        <div class="input-field">
+            <input id="name" name="name" type="text">
+            <label for="name">Users name<label>
+        </div>
+
+        <div class="select-field">
+            <select id="level" name="level" type="text">
+                
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            <label for="level">Users Level<label>
+        </div>
+
+        <div class="submit-button">
+            <button type="submit">Register</button>
+        </div>
+        </form>
+</div>
+
+
+
+{%endblock%}

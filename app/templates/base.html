@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>LMP</title>
-        <link rel="stylesheet" href="static/base.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='base.css')}}">
     </head>
 <body>
     
@@ -14,7 +14,7 @@
       <div class="column left">
         <!--SideBar-->
         <div class="sidenav">
-            <a href="{{url_for('main.account')}}">My Profile</a>
+            <a href="{{url_for('main.index')}}">My Profile</a>
             <a href="#">Search</a>
             <a href="#">Notifications</a>
             <a href="#">Help</a>
@@ -25,31 +25,31 @@
     <!--Column Right-->
     <div class="column right">
     <!--Spaces Selector-->
-    
+    {% if current_user.userRole != 'admin'%}
     <div class="row">
         <div class="module-selector">
             <button class="module-selector-content">
                 {%for module in enrolled_modules%}
-                    <a href="module?module={{module}}">{{module}}</a>
+                    <a href="{{url_for('main.module_home')}}?module={{module}}">{{module}}</a>
                 {%endfor%}
             </button>
         </div>
     </div>
+    {% endif %}
     
 
     <!--Community/Journey Selector-->
-    {% if 'module' in request.path%}<!--Only show if user is in a module page-->
+    {% if 'module' in request.path and current_user.userRole != 'admin'%}<!--Only show if user is in a module page-->
     <div class="row">
-        <a href="module?module={{code}}&type=community">Community</a>
-        <a href="module?module={{code}}&type=materials">Materials</a>
-        <a href="module?module={{code}}&type=assignments">Assignments</a>
+        <a href="{{url_for('main.module_home')}}?module={{code}}">Community</a>
+        <a href="{{url_for('main.module_materials')}}?module={{code}}">Materials</a>
+        <a href="{{url_for('main.module_assignments')}}?module={{code}}">Assignments</a>
     </div>
     {% endif %}
     
     <div class="row">
     <div class="maincontent">
     <!--Main Content eg.posts or files when on Journey-->
-    <h1>Main Content</h1>
     {% block main %}
     {% endblock %}
     </div>
