@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user
-from .models import User
+from .models import *
 from . import db
 
 auth = Blueprint('auth', __name__)#Create blueprint for this file called auth
@@ -18,10 +18,10 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).first()#Check if user exists
+    user = User.query.filter_by(userEmail=email).first()#Check if user exists
 
     #check supplied password(-> Hashed) against password in DB(Hashed)
-    if not user or not check_password_hash(user.password, password):
+    if not user or not check_password_hash(user.userPassword, password):
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))
 
