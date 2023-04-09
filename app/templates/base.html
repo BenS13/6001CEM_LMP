@@ -25,6 +25,7 @@
     <!--Column Right-->
     <div class="column right">
     <!--Spaces Selector-->
+    
     <div class="row">
         <div class="module-selector">
             <button class="module-selector-content">
@@ -34,13 +35,16 @@
             </button>
         </div>
     </div>
+    
 
     <!--Community/Journey Selector-->
+    {% if 'module' in request.path%}<!--Only show if user is in a module page-->
     <div class="row">
         <a href="module?module={{code}}&type=community">Community</a>
         <a href="module?module={{code}}&type=materials">Materials</a>
         <a href="module?module={{code}}&type=assignments">Assignments</a>
     </div>
+    {% endif %}
     
     <div class="row">
     <div class="maincontent">
