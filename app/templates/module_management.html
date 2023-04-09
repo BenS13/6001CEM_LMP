@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{%block main%}
+<h1>Module Management</h1>
+<a href="{{url_for('admin.create_module')}}">Create Module</a>
+<a href="{{url_for('admin.enrol_user')}}">Enrol Users</a>
+{% for module in modules %}
+<p>Code: {{module.moduleCode}}</p>
+<p>Name: {{module.moduleName}}</p>
+<p>Level: {{module.moduleLevel}}</p>
+<br>
+{% endfor %}
+{%endblock%}

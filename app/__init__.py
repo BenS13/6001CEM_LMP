@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 
+
 db = SQLAlchemy()
 
 
@@ -27,6 +28,8 @@ def make_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    
+
     #Blueprint for auth routes eg .login
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
@@ -34,6 +37,10 @@ def make_app():
     #Blueprint for non auth parts of the web application
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    #Blue print for administrator views
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
 
     return app
 
