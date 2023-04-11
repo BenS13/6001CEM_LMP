@@ -4,4 +4,6 @@
 <p>Name: {{current_user.userName}}</p>
 <p>Email: {{current_user.userEmail}}</p>
 <p>Level: {{current_user.userLevel}}</p>
+<br>
+<a href="{{url_for('auth.logout')}}">Logout</a>
 {%endblock%}

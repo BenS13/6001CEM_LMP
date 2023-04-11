@@ -44,6 +44,10 @@
         <a href="{{url_for('main.module_home')}}?module={{code}}">Community</a>
         <a href="{{url_for('main.module_materials')}}?module={{code}}">Materials</a>
         <a href="{{url_for('main.module_assignments')}}?module={{code}}">Assignments</a>
+
+        {%if current_user.userRole == 'educator'%}
+        <a href="{{url_for('main.module_manage')}}?module={{code}}">Manage Module</a>
+        {%endif%}
     </div>
     {% endif %}
     

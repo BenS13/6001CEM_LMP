@@ -2,5 +2,6 @@
 {%block main%}
 <h1>Admin Panel</h1>
 <a href="admin/usermanagement">User Management</a>
-<a href="admin/modulemanagement">Module Management</a>
+<a href="admin/modulemanagement">Module Management</a><br><br>
+<a href="{{url_for('auth.logout')}}">Logout</a>
 {%endblock%}
