@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from . import db
+from .models import *
+from sqlalchemy import select
 
 
 main = Blueprint('main', __name__)
@@ -8,7 +10,12 @@ main = Blueprint('main', __name__)
 @main.route('/')
 @login_required
 def index():
-    enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
+    enrolled_modules= []
+    query = select(Enrolment).where(Enrolment.userId == current_user.id)
+    enrolment = db.session.execute(query)
+    for x in enrolment:
+        for y in x:
+            enrolled_modules.append(y.moduleCode)
     #print(current_user.userRole)
     if current_user.userRole == "admin":
         return redirect(url_for('admin.admin_panel'))
@@ -24,11 +31,19 @@ def index():
 def module_home():
     module_code = request.args.get('module')#Get module code from URL
     
-
     #Query the enrollement table
     #Find out what modules this user is enrolled in
     #save to a list such as the one below
-    enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
+    enrolled_modules= []
+    query = select(Enrolment).where(Enrolment.userId == current_user.id)
+    enrolment = db.session.execute(query)
+    for x in enrolment:
+        for y in x:
+            enrolled_modules.append(y.moduleCode)
+            
+    #print(enrolled_modules)
+        
+    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
     #pass this list into all the module pages
     
 
@@ -47,11 +62,16 @@ def module_home():
 @login_required
 def module_materials():
     module_code = request.args.get('module')
-
+    enrolled_modules= []
+    query = select(Enrolment).where(Enrolment.userId == current_user.id)
+    enrolment = db.session.execute(query)
+    for x in enrolment:
+        for y in x:
+            enrolled_modules.append(y.moduleCode)
     #Query the enrollement table
     #Find out what modules this user is enrolled in
     #save to a list such as the one below
-    enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
+    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
     #pass this list into all the module pages
 
     if module_code not in enrolled_modules:
@@ -67,10 +87,16 @@ def module_materials():
 def module_assignments():
     module_code = request.args.get('module')
 
+    enrolled_modules= []
+    query = select(Enrolment).where(Enrolment.userId == current_user.id)
+    enrolment = db.session.execute(query)
+    for x in enrolment:
+        for y in x:
+            enrolled_modules.append(y.moduleCode)
     #Query the enrollement table
     #Find out what modules this user is enrolled in
     #save to a list such as the one below
-    enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
+    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
     #pass this list into all the module pages
 
     if module_code not in enrolled_modules:
@@ -90,6 +116,5 @@ def account():
 '''Function to initaliase the Database'''
 @main.route('/initdb')
 def initdb():
-    from .models import User
     db.create_all()
     return 'DB CREATED'

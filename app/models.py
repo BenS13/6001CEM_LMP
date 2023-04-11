@@ -30,7 +30,7 @@ class Module(db.Model):
 class Enrolment(db.Model):
     __tablename__ = 'enrolment'
     enrolmentId = db.Column(db.Integer, primary_key=True)
-    moduleId = db.Column(db.Integer, db.ForeignKey(Module.moduleId), nullable=False)
+    moduleCode = db.Column(db.Integer, db.ForeignKey(Module.moduleCode), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
 
 class Post(db.Model):

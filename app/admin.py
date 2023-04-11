@@ -132,13 +132,13 @@ def enrol_user_post():
     user = User.query.filter_by(userEmail=email).first()
     module = Module.query.filter_by(moduleCode=code).first()
     
-    enrol = Enrolment.query.filter_by(moduleId=module.moduleId, userId=user.id).first()
+    enrol = Enrolment.query.filter_by(moduleCode=module.moduleCode, userId=user.id).first()
 
     if enrol:
         flash("User: {} already enrolled on:{}".format(email,code))
         print("Module exists already")
     else:
-        new_enrol = Enrolment(moduleId=module.moduleId, userId=user.id)
+        new_enrol = Enrolment(moduleCode=module.moduleCode, userId=user.id)
         db.session.add(new_enrol)#Add new user to users table
         db.session.commit()#Commit changes to DB
 
