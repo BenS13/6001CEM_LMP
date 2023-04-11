@@ -10,3 +10,7 @@ To run this app:
 6) Activate the Virtual Environment(Windows PWRSHELL) ```env/scripts/activate.ps1```
 7) Run ```pip install -r requirements.txt```
 8) To start the app: ```flask --app app/ --debug run```
+
+Test Admin: admin@test.com:password1
+Test Student: student1@test.com:password1
+Test Educator: educator1@test.com:password1
