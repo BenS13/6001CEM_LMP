@@ -21,11 +21,10 @@ def educator_required(f):
 #Function to get current enrolled modules for current user
 def get_enrolled_modules():
     enrolled_modules= []
-    query = select(Enrolment).where(Enrolment.userId == current_user.id)
-    enrolment = db.session.execute(query)
-    for x in enrolment:
-        for y in x:
-            enrolled_modules.append(y.moduleCode)
+    enrollment = Enrolment.query.filter_by(userId=current_user.id).all()
+    #print(enrollment)
+    for entry in enrollment:
+            enrolled_modules.append(entry.moduleCode)
     return enrolled_modules
 
 
@@ -49,14 +48,14 @@ def module_home():
     module_code = request.args.get('module')#Get module code from URL
     
     
-    enrolled_modules= get_enrolled_modules()
+    enrolled_modules= get_enrolled_modules()#Get enrolled modules
 
     module = Module.query.filter_by(moduleCode=module_code).first()#Take URL argument-moduleCode -> get back module object
                                                                    #This basically converts moduleCode -> moduleId
-    print("User:{} is requesting posts from:{}".format(current_user.userEmail, module.moduleCode))
-    
-    posts = Post.query.filter_by(moduleId=module.moduleId).all()
-    print(posts)
+    if module:
+        print("User:{} is requesting posts from:{}".format(current_user.userEmail, module.moduleCode))
+        posts = Post.query.filter_by(moduleId=module.moduleId).all()#Get all posts for requested module
+        #print(posts)
     
     #Check if user is enrolled in the module
     #IF NO do something
