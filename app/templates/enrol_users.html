@@ -40,9 +40,15 @@
 
 <div>
     <br>
-    {% for enrol in enrolment%}
-    <p>Module ID:{{enrol.moduleCode}}</p>
-    <p>User ID:{{enrol.userId}}</p>
+    {% for enrol in enrolment %}
+        <p>Module ID: {{enrol.moduleCode}}</p>
+        <p>User ID: {{enrol.userId}}</p>
+        {% for user in users %}
+            {% if user.id == enrol.userId %}
+                <p>Email: {{user.userEmail}}</p>
+                <p>Name: {{user.userName}}</p>
+            {% endif %}
+        {% endfor %}
     <br>
     {%endfor%}
 </div>
