@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{%block main%}
+<h1>Edit User: {{user.id}}:{{user.userEmail}}</h1>
+
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+
+<div class="row">
+    <p><u><b>Old Details</b></u></p>
+    <p>Role: {{user.userRole}}</p>
+    <p>ID: {{user.id}}</p>
+    <p>Name: {{user.userName}}</p>
+    <p>Email: {{user.userEmail}}</p>
+    <p>Level: {{user.userLevel}}</p>
+
+</div>
+
+<div class="row">
+    <p><u><b>New Details</b></u></p>
+    <form class="login-form" method="POST" action="/admin/usermanagement/edit">
+       
+        <div class="input-field">
+            <input id="email" name="email" type="email">
+            <label for="email">New Email<label>
+        </div>
+
+        <div class="input-field">
+            <input id="name" name="name" type="text">
+            <label for="name">New Name<label>
+        </div>
+
+        
+        <div class="select-field">
+            <select id="role" name="role" type="text">
+                <option value="" disabled selected hidden>{{user.userRole}}</option>
+                <option value="admin">admin</option>
+                {% if user.userRole!= 'admin' %}
+                <option value="educator">educator</option>
+                <option value="student">student</option>
+                {% endif %}
+            </select>
+            <label for="role">New Role<label>
+        </div>
+
+        {% if user.userRole!= 'admin' %}
+        <div class="select-field">
+            <select id="level" name="level" type="text">
+                <option value="" disabled selected hidden>{{user.userLevel}}</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            <label for="level">New Level<label>
+        </div>
+        {% endif %}
+
+        <div class="submit-button">
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+{%endblock%}

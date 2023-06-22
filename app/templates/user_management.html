@@ -6,6 +6,9 @@
 <p>Role: {{user.userRole}}</p>
 <p>Email: {{user.userEmail}}</p>
 <p>Name: {{user.userName}}</p>
-<br>
+<a href="{{url_for('admin.edit_user')}}?userId={{user.id}}">
+    <button>EDIT</button>
+</a>
+<br><br>
 {% endfor %}
 {%endblock%}

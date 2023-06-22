@@ -28,7 +28,7 @@ def admin_panel():
     return render_template('admin_panel.html')
 
 
-#User management panel
+#-------------------User management panel----------------------#
 @admin.route('/admin/usermanagement')
 @login_required
 @admin_required
@@ -71,7 +71,18 @@ def register_user_post():
     return redirect(url_for("admin.register_user"))
 
 
-#Module management panel
+#Edit users details
+@admin.route('/admin/usermanagement/edit')
+@login_required
+@admin_required
+def edit_user():
+    userId = request.args.get('userId')
+    user = User.query.filter_by(id=userId).first()
+    return render_template('edit_user.html', user=user)
+
+
+
+#--------------------Module management panel-----------------------#
 #Module managment
 @admin.route('/admin/modulemanagement')
 @login_required
