@@ -51,11 +51,18 @@ def module_home():
     
     enrolled_modules= get_enrolled_modules()
 
+    module = Module.query.filter_by(moduleCode=module_code).first()#Take URL argument-moduleCode -> get back module object
+                                                                   #This basically converts moduleCode -> moduleId
+    print("User:{} is requesting posts from:{}".format(current_user.userEmail, module.moduleCode))
+    
+    posts = Post.query.filter_by(moduleId=module.moduleId).all()
+    print(posts)
+    
     #Check if user is enrolled in the module
     #IF NO do something
     #ELSE load requested page.
     if module_code not in enrolled_modules:
-        print("Error user not enrolled in this course")
+        print("Error user:{} not enrolled in this module:{}".format(current_user.userEmail, module_code))
         return "Error you are not enrolled in this module"
     else:
         content = "POSTS"
