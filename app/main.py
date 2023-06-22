@@ -14,7 +14,7 @@ def educator_required(f):
         if current_user.userRole == "educator":
             return f(*args, **kwargs)
         else:
-            flash("You need to be an admin to view this page")
+            flash("You need to be an educator to view this page")
             return redirect(url_for('main.index'))
     return wrap
 
