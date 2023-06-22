@@ -18,16 +18,21 @@ def educator_required(f):
             return redirect(url_for('main.index'))
     return wrap
 
-
-@main.route('/')
-@login_required
-def index():
+#Function to get current enrolled modules for current user
+def get_enrolled_modules():
     enrolled_modules= []
     query = select(Enrolment).where(Enrolment.userId == current_user.id)
     enrolment = db.session.execute(query)
     for x in enrolment:
         for y in x:
             enrolled_modules.append(y.moduleCode)
+    return enrolled_modules
+
+
+@main.route('/')
+@login_required
+def index():
+    enrolled_modules= get_enrolled_modules()#Run function defined above
     #print(current_user.userRole)
     if current_user.userRole == "admin":
         return redirect(url_for('admin.admin_panel'))
@@ -43,21 +48,8 @@ def index():
 def module_home():
     module_code = request.args.get('module')#Get module code from URL
     
-    #Query the enrollement table
-    #Find out what modules this user is enrolled in
-    #save to a list such as the one below
-    enrolled_modules= []
-    query = select(Enrolment).where(Enrolment.userId == current_user.id)
-    enrolment = db.session.execute(query)
-    for x in enrolment:
-        for y in x:
-            enrolled_modules.append(y.moduleCode)
-            
-    #print(enrolled_modules)
-        
-    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
-    #pass this list into all the module pages
     
+    enrolled_modules= get_enrolled_modules()
 
     #Check if user is enrolled in the module
     #IF NO do something
@@ -74,17 +66,8 @@ def module_home():
 @login_required
 def module_materials():
     module_code = request.args.get('module')
-    enrolled_modules= []
-    query = select(Enrolment).where(Enrolment.userId == current_user.id)
-    enrolment = db.session.execute(query)
-    for x in enrolment:
-        for y in x:
-            enrolled_modules.append(y.moduleCode)
-    #Query the enrollement table
-    #Find out what modules this user is enrolled in
-    #save to a list such as the one below
-    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
-    #pass this list into all the module pages
+    
+    enrolled_modules= get_enrolled_modules()
 
     if module_code not in enrolled_modules:
         print("Error user not enrolled in this course")
@@ -99,17 +82,7 @@ def module_materials():
 def module_assignments():
     module_code = request.args.get('module')
 
-    enrolled_modules= []
-    query = select(Enrolment).where(Enrolment.userId == current_user.id)
-    enrolment = db.session.execute(query)
-    for x in enrolment:
-        for y in x:
-            enrolled_modules.append(y.moduleCode)
-    #Query the enrollement table
-    #Find out what modules this user is enrolled in
-    #save to a list such as the one below
-    #enrolled_modules = ['5003CEM', '6003CEM', '7004CEM']
-    #pass this list into all the module pages
+    enrolled_modules= get_enrolled_modules()
 
     if module_code not in enrolled_modules:
         print("Error user not enrolled in this course")
@@ -125,14 +98,9 @@ def module_assignments():
 @login_required
 @educator_required
 def module_manage():
-    enrolled_modules= []
-    query = select(Enrolment).where(Enrolment.userId == current_user.id)
-    enrolment = db.session.execute(query)
-    for x in enrolment:
-        for y in x:
-            enrolled_modules.append(y.moduleCode)
+    enrolled_modules= get_enrolled_modules()
     module_code = request.args.get('module')
-    return render_template('manage_module.html', module_code=module_code, enrolled_modules=enrolled_modules)
+    return render_template('manage_module.html', code=module_code, enrolled_modules=enrolled_modules)
 
 
 @main.route('/account')
